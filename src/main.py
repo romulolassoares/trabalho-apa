@@ -3,7 +3,7 @@ import numpy as np
 from time import time
 from random import randint
 
-from functions import create_array
+from src.functions import create_array
 from classes.Ordination import Ordination
 
 def menu():
