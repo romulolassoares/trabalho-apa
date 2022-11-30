@@ -19,8 +19,7 @@ def menu():
 def main():
     op = menu()
     order = Ordination()
-    arr = create_array(10,mess)
-    
+    arr = create_array(30,mess)
     start_time = time()
     if op == 1:
         order.heap_sort(arr)
@@ -35,25 +34,36 @@ def main():
     print("Elapsed {:.5f} seconds".format(elapsed_time))
     
 def multiple_run():
-    agms = ['heap', 'merge', 'quick', 'quick random']
     sizes = [1000, 5000, 10000, 50000, 100000, 500000]
+    # sizes = [500000]
     order = Ordination()
     agm_dict = {
         'merge': order.merge_sort,
         'heap': order.heap_sort,
         'quick': order.quick_sort,
         'quick random': order.quick_sort_random,
+        'quick med': order.quick_sort_m,
     }
-    for agm in agms:
+    results = []
+    for agm in agm_dict.keys():
         print(f"*** FOR {agm.upper()} SORT ***")
+        tests_size = 10
         for size in sizes:
-            arr = create_array(size,0.5)
-            start_time = time()
-            agm_dict[agm](arr)
-            end_time = time()
-            elapsed_time = (end_time - start_time)
-            print(f"Size {size} it took {elapsed_time:.5f} s")
+            mean = 0
+            for t in range(tests_size): 
+                arr = create_array(size,0.5)
+                start_time = time()
+                agm_dict[agm](arr)
+                end_time = time()
+                elapsed_time = (end_time - start_time)
+                print(f"Test {t} to size {size} it took {elapsed_time:.5f} s")
+                mean += elapsed_time
+                results.append([t, size, elapsed_time])
+            print(f"Mean = {mean / tests_size:.5f}")
+            print("-----------------------------------------------------")
         print("-----------------------------------------")
+        
+    print(results)
 
 try:
     start_funct = int(sys.argv[1])

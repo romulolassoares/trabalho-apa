@@ -18,9 +18,14 @@ class Ordination:
    def quick_sort(self, arr):
       quick = QuickSort()
       n = len(arr)
-      quick.quick_sort(arr, 0, n)
+      quick.quick_sort(arr, 0, n, 0)
       
    def quick_sort_random(self, arr):
       quick = QuickSort()
       n = len(arr)
-      quick.quick_sort_rand(arr, 0, n)
+      quick.quick_sort(arr, 0, n, 1)
+      
+   def quick_sort_m(self, arr):
+      quick = QuickSort()
+      n = len(arr)
+      quick.quick_sort(arr, 0, n, 2)
