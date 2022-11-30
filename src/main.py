@@ -53,9 +53,6 @@ def multiple_run():
     for agm in agm_dict.keys():
         for size in sizes:
             for t in range(tests_size): 
-                sys.stdout.write(f"{agm} - {size}: {animation[t % len(animation)]} \r")
-                sys.stdout.flush()
-                
                 arr = create_array(size,0.5)
                 # Calculate time for ordination
                 start_time = time()
@@ -64,6 +61,8 @@ def multiple_run():
                 elapsed_time = (end_time - start_time)
                 
                 results.append([t, size, elapsed_time])
+                sys.stdout.write(f"{agm} - {size}: {animation[t % len(animation)]} \r")
+                sys.stdout.flush()
         df = pd.DataFrame(results)
         df.rename(columns={0: 't', 1: 'Size', 2: 'Time'}, inplace=True)
         df.to_csv(f"./results/{agm}.csv", sep=',', encoding='utf-8', index=False)
