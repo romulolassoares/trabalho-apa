@@ -38,20 +38,21 @@ def main():
     
 def multiple_run():
     # sizes = [1000, 5000]
-    sizes = [1000, 5000, 10000, 50000, 100000, 500000]
+    sizes = [ 100, 1000, 5000, 10000, 50000, 100000]
     order = Ordination()
     agm_dict = {
         'merge': order.merge_sort,
-        'heap': order.heap_sort,
-        'quick': order.quick_sort,
-        'quick random': order.quick_sort_random,
-        'quick med': order.quick_sort_m,
+        # 'heap': order.heap_sort,
+        # 'quick': order.quick_sort,
+        # 'quick random': order.quick_sort_random,
+        # 'quick med': order.quick_sort_m,
     }
-    results = []
+    
 
     tests_size = 10
     for agm in agm_dict.keys():
         for size in sizes:
+            results = []
             for t in range(tests_size): 
                 arr = create_array(size,0.5)
                 # Calculate time for ordination
@@ -63,9 +64,9 @@ def multiple_run():
                 results.append([t, size, elapsed_time])
                 sys.stdout.write(f"{agm} - {size}: {animation[t % len(animation)]} \r")
                 sys.stdout.flush()
-        df = pd.DataFrame(results)
-        df.rename(columns={0: 't', 1: 'Size', 2: 'Time'}, inplace=True)
-        df.to_csv(f"./results/{agm}.csv", sep=',', encoding='utf-8', index=False)
+            df = pd.DataFrame(results)
+            df.rename(columns={0: 't', 1: 'Size', 2: 'Time'}, inplace=True)
+            df.to_csv(f"./results/{agm}_{size}.csv", sep=',', encoding='utf-8', index=False)
     
 
 try:
