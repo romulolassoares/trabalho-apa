@@ -2,9 +2,12 @@ import sys
 import numpy as np
 from time import time
 from random import randint
+import pandas as pd
 
 from functions import create_array
 from classes.Ordination import Ordination
+
+animation = ["10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
 
 def menu():
     print("--- MENU ---")
@@ -34,8 +37,8 @@ def main():
     print("Elapsed {:.5f} seconds".format(elapsed_time))
     
 def multiple_run():
+    # sizes = [1000, 5000]
     sizes = [1000, 5000, 10000, 50000, 100000, 500000]
-    # sizes = [500000]
     order = Ordination()
     agm_dict = {
         'merge': order.merge_sort,
@@ -45,25 +48,26 @@ def multiple_run():
         'quick med': order.quick_sort_m,
     }
     results = []
+
+    tests_size = 10
     for agm in agm_dict.keys():
-        print(f"*** FOR {agm.upper()} SORT ***")
-        tests_size = 10
         for size in sizes:
-            mean = 0
             for t in range(tests_size): 
+                sys.stdout.write(f"{agm} - {size}: {animation[t % len(animation)]} \r")
+                sys.stdout.flush()
+                
                 arr = create_array(size,0.5)
+                # Calculate time for ordination
                 start_time = time()
                 agm_dict[agm](arr)
                 end_time = time()
                 elapsed_time = (end_time - start_time)
-                print(f"Test {t} to size {size} it took {elapsed_time:.5f} s")
-                mean += elapsed_time
+                
                 results.append([t, size, elapsed_time])
-            print(f"Mean = {mean / tests_size:.5f}")
-            print("-----------------------------------------------------")
-        print("-----------------------------------------")
-        
-    print(results)
+        df = pd.DataFrame(results)
+        df.rename(columns={0: 't', 1: 'Size', 2: 'Time'}, inplace=True)
+        df.to_csv(f"./results/{agm}.csv", sep=',', encoding='utf-8', index=False)
+    
 
 try:
     start_funct = int(sys.argv[1])
