@@ -54,7 +54,7 @@ def multiple_run():
     }
     
 
-    tests_size = 10
+    tests_size = 100
     for agm in agm_dict.keys():
         loader_agm = Loader(
             f"・ Loading \033[1m{agm.upper()}\033[0m",

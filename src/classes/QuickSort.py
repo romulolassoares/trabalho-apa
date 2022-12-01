@@ -4,6 +4,21 @@ class QuickSort:
     def __init__(self) -> None:
         pass
     
+    # def __acha_pivo(self, arr, n1, n2, pto):
+    #     left = n1
+    #     right = n2
+    #     pos = left + 1
+    #     pto = 0
+    #     while(true):
+    #         if pos > right:
+    #             return pto
+    #         elif arr[pos] >= arr[pos-1]:
+    #             pos = pos + 1
+    #         else:
+    #             pto = pos + 1
+    #             return pto
+                
+
     def __median_of_five(self, arr, start, end):
         middle50 = (start + end - 1) // 2
         middle25 = (start + middle50) //2
@@ -32,7 +47,7 @@ class QuickSort:
             return a
         
 
-    def __find_pivot(self, arr, start, end, op):
+    def __set_pivot(self, arr, start, end, op):
         if op == 1:
             rand = randint(start, end-1)
             arr[rand], arr[end - 1] = arr[end - 1], arr[rand]
@@ -47,7 +62,7 @@ class QuickSort:
         return arr
 
     def __partition(self, arr, start, end, op):
-        arr = self.__find_pivot(arr, start, end, op)
+        arr = self.__set_pivot(arr, start, end, op)
         pivot = arr[end - 1]
         for i in range(start, end):
             if arr[i] > pivot:
