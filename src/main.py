@@ -84,9 +84,10 @@ def main():
 
 def multiple_run():
     # sizes = [1000, 5000]
-    sizes = [100, 1000, 5000, 10000, 50000, 100000]
+    sizes = [10000, 20000, 300000, 400000, 50000, 60000, 70000, 80000, 90000]
+    # sizes = [100, 1000, 5000, 10000, 50000, 100000]
     order = Ordination()
-    mess = 0.1
+    mess = 0.5
     agm_dict = {
         'merge': order.merge_sort,
         'heap': order.heap_sort,
