@@ -4,19 +4,19 @@ class QuickSort:
     def __init__(self) -> None:
         pass
     
-    # def __acha_pivo(self, arr, n1, n2, pto):
-    #     left = n1
-    #     right = n2
-    #     pos = left + 1
-    #     pto = 0
-    #     while(true):
-    #         if pos > right:
-    #             return pto
-    #         elif arr[pos] >= arr[pos-1]:
-    #             pos = pos + 1
-    #         else:
-    #             pto = pos + 1
-    #             return pto
+    def __acha_pivo(self, arr, n1, n2, pto):
+        left = n1
+        right = n2-1
+        pos = left + 1
+        pto = 0
+        while(True):
+            if pos > right:
+                return pto
+            elif arr[pos] >= arr[pos-1]:
+                pos = pos + 1
+            else:
+                pto = pos + 1
+                return pto
                 
 
     def __median_of_five(self, arr, start, end):
@@ -47,36 +47,38 @@ class QuickSort:
             return a
         
 
-    def __set_pivot(self, arr, start, end, op):
+    def __set_pivot(self, arr, left, right, op):
         if op == 1:
-            rand = randint(start, end-1)
-            arr[rand], arr[end - 1] = arr[end - 1], arr[rand]
+            rand = randint(left, right-1)
+            arr[rand], arr[right - 1] = arr[right - 1], arr[rand]
         elif op == 2:
-            n = end-start
-            e = start
+            n = right-left
+            e = left
             if n <= 5:
-                e = end-1
+                e = right-1
             else:
-                e = self.__median_of_five(arr, start, end)
-            arr[e], arr[end - 1] = arr[end - 1], arr[e]
+                e = self.__median_of_five(arr, left, right)
+            arr[e], arr[right - 1] = arr[right - 1], arr[e]
+        elif op == 3:
+            pto = self.__acha_pivo(arr, left, right, 0)
         return arr
 
-    def __partition(self, arr, start, end, op):
-        arr = self.__set_pivot(arr, start, end, op)
-        pivot = arr[end - 1]
-        for i in range(start, end):
+    def __partition(self, arr, left, right, op):
+        arr = self.__set_pivot(arr, left, right, op)
+        pivot = arr[right - 1]
+        for i in range(left, right):
             if arr[i] > pivot:
-                end += 1
+                right += 1
             else:
-                end += 1
-                start += 1
-                arr[i], arr[start - 1] = arr[start - 1], arr[i]
-        return start - 1
+                right += 1
+                left += 1
+                arr[i], arr[left - 1] = arr[left - 1], arr[i]
+        return left - 1
     
-    def quick_sort(self, arr, start, end, op):
-        if start < end:
-            p = self.__partition(arr, start, end, op)
-            self.quick_sort(arr, start, p, op)
-            self.quick_sort(arr, p + 1, end, op)
+    def quick_sort(self, arr, righ, left, op):
+        if righ < left:
+            p = self.__partition(arr, righ, left, op)
+            self.quick_sort(arr, righ, p, op)
+            self.quick_sort(arr, p + 1, left, op)
 
 

@@ -2,7 +2,7 @@ class MergeSort:
    def __ini__(self) -> None:
          pass
 
-   def __merge(self, arr, left, middle, right):
+   def __intercalate(self, arr, left, middle, right):
       n1 = middle - left + 1
       n2 = right - middle
 
@@ -44,4 +44,4 @@ class MergeSort:
 
          self.merge_sort(arr, left, middle)
          self.merge_sort(arr, middle+1, right)
-         self.__merge(arr, left, middle, right)
+         self.__intercalate(arr, left, middle, right)

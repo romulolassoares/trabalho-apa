@@ -29,3 +29,8 @@ class Ordination:
       quick = QuickSort()
       n = len(arr)
       quick.quick_sort(arr, 0, n, 2)
+   
+   def quick_sort_find_pivot(self, arr):
+      quick = QuickSort()
+      n = len(arr)
+      quick.quick_sort(arr, 0, n, 3)
