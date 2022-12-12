@@ -84,10 +84,10 @@ def main():
 
 def multiple_run():
     # sizes = [1000, 5000]
-    sizes = [10000, 20000, 300000, 400000, 50000, 60000, 70000, 80000, 90000]
-    # sizes = [100, 1000, 5000, 10000, 50000, 100000]
+    # sizes = [10000, 20000, 300000, 400000, 50000, 60000, 70000, 80000, 90000]
+    sizes = [100, 1000, 5000, 10000, 50000, 100000]
     order = Ordination()
-    mess = 0.5
+    mess = [0.1, 0.5]
     agm_dict = {
         'merge': order.merge_sort,
         'heap': order.heap_sort,
@@ -97,28 +97,29 @@ def multiple_run():
     }
     
 
-    tests_size = 10
+    tests_size = 50
     for agm in agm_dict.keys():
         loader_agm = Loader(
             f"・ Loading \033[1m{agm.upper()}\033[0m",
             f"・ The \033[1m{agm.upper()}\033[0m is done!!!",
             0.05
         ).start()
-        results = []
-        for size in sizes:
-            mean = 0
-            for t in range(tests_size): 
-                arr = create_array(size,mess)
-                # Calculate time for ordination
-                start_time = time()
-                agm_dict[agm](arr)
-                end_time = time()
-                mean += end_time - start_time
-                # Save values to results array
-            results.append([size, mean/tests_size])
-            df = pd.DataFrame(results,  columns=['Size', 'Time'])
-            df.rename(columns={0: 't', 1: 'Size', 2: 'Time'}, inplace=True)
-            df.to_csv(f"./results/{agm}_{mess}.csv", sep=',', encoding='utf-8', index=False)
+        for m in mess:
+            results = []
+            for size in sizes:
+                mean = 0
+                for t in range(tests_size): 
+                    arr = create_array(size,m)
+                    # Calculate time for ordination
+                    start_time = time()
+                    agm_dict[agm](arr)
+                    end_time = time()
+                    mean += end_time - start_time
+                    # Save values to results array
+                results.append([size, mean/tests_size])
+                df = pd.DataFrame(results,  columns=['Size', 'Time'])
+                df.rename(columns={0: 't', 1: 'Size', 2: 'Time'}, inplace=True)
+                df.to_csv(f"./results/{agm}_{m}.csv", sep=',', encoding='utf-8', index=False)
         loader_agm.stop()
 
 try:

@@ -37,8 +37,16 @@ class MergeSort:
          arr[k] = right_arr[j]
          j += 1
          k += 1
-
+         
    def merge_sort(self, arr, left, right):
+      """
+      Algoritmo de ordenação MergeSort
+
+      Parameters:
+            arr (array, optional): Lista de inteiros para ser ordenada
+            left (int, optional): Elemento da esquerda. Inicualmente é o primeito elemento
+            right (int, optional): Elemento da direita. Inicalmente é o último elemento.
+      """
       if left < right:
          middle = left + (right - left)//2
 
